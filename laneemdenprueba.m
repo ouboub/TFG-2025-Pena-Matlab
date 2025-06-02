@@ -1,6 +1,12 @@
-%Parámetros de la simulación
-N=input('introduce N');    %Número de puntos de colocación
-maxiter=input('introduce maxiter');   %Número de iteraciones
+% UB:02.06.2025:17:53: por favor usar input!
+% UB:02.06.2025:17:53: ese programa ha sido generado por ChatGTP???
+% Parámetros de la simulación
+
+%% eso es una celda
+% N=input('introduce N');    %Número de puntos de colocación
+% maxiter=input('introduce maxiter');   %Número de iteraciones
+N=10;
+maxiter=3;
 nvalores= [1, 2, 3, 4];  %Valores del índice politrópico
 %Prepara la tabla de resultados
 resultado=zeros(maxiter,length(nvalores));
