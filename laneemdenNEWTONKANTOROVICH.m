@@ -1,4 +1,4 @@
-function [alfa,a,x,y]=laneemdenNEWTONKANTOROVICH(n,N,maxiter)
+function [alfa,y,alfas]=laneemdenNEWTONKANTOROVICH(n,N,maxiter)
     % Resuelve la ecuación de Lane-Emden usando método espectral de Chebyshev
     % y el de Newton-Kantorovich
     % ENTRADAS:
@@ -7,26 +7,58 @@ function [alfa,a,x,y]=laneemdenNEWTONKANTOROVICH(n,N,maxiter)
     %   maxiter: máximo número de iteraciones de Newton
     % SALIDAS:
     %   alfa: autovalor (solución de la ecuación)
-    %   a: coeficientes de Chebyshev
-    %   x: puntos de colocación
     %   y: solución evaluada en x
+    %   alfas: distintas soluciones para cada n
     
     %1.Puntos de Chebyshev-Lobatto en [0,1]
     j=(0:N-1)';
-    x=cos(pi*j/(N-1));  %Puntos en [-1,1]
-    x=(1+x)/2;        %Transformacion a [0,1]
-    x(1)=1; 
-    x(end)=0; %Asegurar exactamente 1 y 0 (evitar singularidades)    
+    tj=pi*(j/(N-1));  %Puntos en [-1,1]
+    x=(1+cos(tj))/2;  %Transformacion a [0,1]    
     %2.Matrices de diferenciación de Chebyshev
-    
-    
+    [D0,D1,D2]=chebdiff(N);
     %3.Condiciones iniciales
     y0=cos((pi/2)*x); 
     alfa0=3;
     %4.Encontrar coeficientes iniciales de Chebyshev
-   
-  
+    a=D0\y0;
     %5.Iteraciones de Newton-Kantorovich
-%aqui iria el bucle
+    alfas=zeros(maxiter,1);
+    alfas(1)=alfa0;
+    alfa=alfa0;
+    for iter=1:maxiter
+        %Evaluaamos y y sus derivadas
+        y=D0*a;
+        yx=D1*a;
+        yxx=D2*a;
+        %Calculamos el residuo
+        r=yxx+(2./x).*yx+alfa^2*y.^n; %puede haber fallo 
+        %Iniciamos el sistema lineal para la corrección (Jacobiano)
+        J=zeros(N+1,N+1);
+        R=zeros(N+1,1);
+        %Ecuación en puntos interiores (N-2 ecuaciones)
+        for i=2:N-1
+            J(i-1,1:N)=D2(i,:)+(2/x(i))*D1(i,:)+alfa^2*n*y(i)^(n-1)*D0(i,:);
+            J(i-1,N+1)=2*alfa^n*y(i); %puede haber fallo 
+            R(i-1)=-r(i);
+        end
+        %Condiciones de frontera
+        %y(0)=1
+        J(N-1,1:N)=D0(1,:);
+        R(N+1)=-(y(1)-1);
+        %yx(0)=0 
+        J(N,1:N)=D1(end,:);
+        %y(1)=0
+        J(N+1,1:N)=D0(end,:);
+        %Resolver el sistema lineal
+        delta=J\R;
+        %Actualizar solución
+        a=a+delta(1:N);
+        alfa=alfa+delta(end);
+        alfas(iter)=sum(alfa);
+    end
     %6.Evaluar la solucion final
+    y=D0*a;
+end
+function [D0,D1,D2]=chebdiff(N)
+   %falta de hacer
 end
