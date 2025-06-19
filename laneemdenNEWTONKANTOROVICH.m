@@ -60,5 +60,30 @@ function [alfa,y,alfas]=laneemdenNEWTONKANTOROVICH(n,N,maxiter)
     y=D0*a;
 end
 function [D0,D1,D2]=chebdiff(N)
-   %falta de hacer
+    %Construye matrices de diferenciación de Chebyshev para [0,1]
+    tj=pi*((0:N-1)'/(N-1));
+    %Construimos D0 usando la relación trigonométrica T_n(cos(t))=cos(nt)
+    D0=zeros(N,N);
+    for i=1:N
+        t=tj(i);
+        for j=0:N-1
+            D0(i,j+1)=cos(j*t);  %Equivalente a T_n(2x-1)
+        end
+    end
+    %Construimos D1 y D2 usando fórmulas
+    D1=zeros(N,N);
+    D2=zeros(N,N);
+    for i=1:N
+        t=tj(i);
+        for j=0:N-1
+            %Primera derivada
+            D1(i,j+1)=2*j*sin(j*t)/sin(t);
+            D1(1,j+1)=2*j^2;
+            D1(N,j+1)=2*(-1)^j*j^2;
+            %Segunda derivada
+            D2(i,j+1)=4*(-j^2*cos(j*t)/(sin(t)^2)+j*sin(j*t)*cos(t)/(sin(t)^3));
+            D2(1,j+1)=(4/3)*j^2*(j^2-1);
+            D2(N,j+1)=(4)*(-1)^j*(j^2)*((j^2-1)/3);
+        end
+    end
 end
