@@ -17,7 +17,7 @@ function [alfa,y,alfas]=laneemdenNEWTONKANTOROVICH(n,N,maxiter)
     %2.Matrices de diferenciación de Chebyshev
     [D0,D1,D2]=chebdiff(N);
     %3.Condiciones iniciales
-    y0=cos((pi/2)*x); 
+    y0=cos((pi/2).*x); 
     alfa0=3;
     %4.Encontrar coeficientes iniciales de Chebyshev
     a=D0\y0;
@@ -38,7 +38,7 @@ function [alfa,y,alfas]=laneemdenNEWTONKANTOROVICH(n,N,maxiter)
         %Ecuación en puntos interiores (N-2 ecuaciones)
         for i=2:N-1
             J(i-1,1:N)=D2(i,:)+(2/x(i))*D1(i,:)+alfa^2*n*y(i)^(n-1)*D0(i,:);
-            J(i-1,N+1)=2*alfa^n*y(i); %puede haber fallo 
+            J(i-1,N+1)=2*alfa^n*y(i); %puede haber fallo
             R(i-1)=-r(i);
         end
         %Condiciones de frontera

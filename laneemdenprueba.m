@@ -6,8 +6,8 @@
 % N=input('introduce N');    %Número de puntos de colocación
 % maxiter=input('introduce maxiter');   %Número de iteraciones
 N=70;
-maxiter=8;
-nvalores= [1, 2, 3, 4];  %Valores del índice politrópico
+maxiter=10;
+nvalores=[1,2,3,4];  %Valores del índice politrópico
 %Prepara la tabla de resultados
 resultado=zeros(maxiter,length(nvalores));
     %Calcula resultados para cada n
