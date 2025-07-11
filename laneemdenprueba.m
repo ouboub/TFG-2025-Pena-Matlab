@@ -13,7 +13,7 @@ resultado=zeros(maxiter,length(nvalores));
     %Calcula resultados para cada n
     for i=1:length(nvalores)
         n=nvalores(i);
-        [~,~,alfas]=laneemdenNEWTONKANTOROVICH(n,N,maxiter);
+        [~,~,alfas,~,~]=laneemdenNEWTONKANTOROVICH(n,N,maxiter);
         resultado(:,i)=alfas;
     end
 %Muestra la tabla formateada
