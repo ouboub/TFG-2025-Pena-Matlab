@@ -30,7 +30,7 @@ function [alfa,y,alfas,a,x]=laneemdenNEWTONKANTOROVICH(n,N,maxiter)
     % 3.Condiciones iniciales
     y0=cos((pi/2).*x); 
     alfa=3;
-    % 4.Encontrar coeficientes iniciales de Chebyshev
+    % 4.Encontrar coeficientes iniciales de Chebyshev  
     a=D0\y0;
     % 5.Iteraciones de Newton-Kantorovich
     alfas=zeros(maxiter,1);
@@ -45,18 +45,18 @@ function [alfa,y,alfas,a,x]=laneemdenNEWTONKANTOROVICH(n,N,maxiter)
         r=zeros(N+1,1);
         % Ecuación en puntos interiores (N-2 ecuaciones)
         J(1:N-2,1:N)=D2(2:N-1,:)+(2./x(2:N-1)).*D1(2:N-1,:)+alfa^2*n*y(2:N-1).^(n-1).*D0(2:N-1,:);
-        J(1:N-2,N+1)=2*alfa^n.*y(2:N-1); % puede haber fallo
+        J(1:N-2,N+1)=2*alfa*y(2:N-1).^n; 
         r(1:N-2)=yxx(2:N-1)+(2./x(2:N-1)).*yx(2:N-1)+alfa^2.*y(2:N-1).^n;
         % Condiciones de frontera
         % y(0)=1
         J(N-1,1:N)=D0(1,:);
-        r(N+1)=y(1)-1;
+        r(N+1)=y(N)-1;
         % yx(0)=0 
         J(N,1:N)=D1(end,:);
         % y(1)=0
         J(N+1,1:N)=D0(end,:);
         % Resolver el sistema lineal
-        delta=J\-r;
+        delta=-J\r;
         % Actualizar solución
         a=a+delta(1:N);
         alfa=alfa+delta(end);
@@ -67,29 +67,26 @@ function [alfa,y,alfas,a,x]=laneemdenNEWTONKANTOROVICH(n,N,maxiter)
 end
 function [D0,D1,D2]=chebdiff(N)
     % Construye matrices de diferenciación de Chebyshev para [0,1]
-    tj=pi*((0:N-1)'/(N-1));
-    % Construimos D0 usando la relación trigonométrica T_n(cos(t))=cos(nt)
-    D0=zeros(N,N);
-    for i=1:N
-        t=tj(i);
-        for j=0:N-1
-            D0(i,j+1)=cos(j*t);  % Equivalente a T_n(2x-1)
-        end
-    end
+    j=0:N-1;
+    theta=pi*j/(N-1);
+    t=theta(:);  % columna
+    J=j(:)';     % fila
+    T=cos(J.*t);         % Matriz D0(NxN)
+    S=sin(t); 
+    C=cos(t);
+    D0=T;
     % Construimos D1 y D2 usando fórmulas
-    D1=zeros(N,N);
-    D2=zeros(N,N);
-    for i=1:N
-        t=tj(i);
-        for j=0:N-1
-            % Primera derivada
-            D1(i,j+1)=2*j*sin(j*t)/sin(t);
-            D1(1,j+1)=2*j^2;
-            D1(N,j+1)=2*(-1)^j*j^2;
-            % Segunda derivada
-            D2(i,j+1)=4*(-j^2*cos(j*t)/(sin(t)^2)+j*sin(j*t)*cos(t)/(sin(t)^3));
-            D2(1,j+1)=(4/3)*j^2*(j^2-1);
-            D2(N,j+1)=(4)*(-1)^j*(j^2)*((j^2-1)/3);
-        end
+    D1=2*(J.*sin(J.*t))./S;
+    D2=4*(-(J.^2.*cos(J.*t))./(S.^2)+(J.*sin(J.*t).*C)./(S.^3));
+    % Corregir extremos
+    for k=1:N
+        n=k-1;
+        D0(1,k)=1;
+        D0(N,k)=(-1)^n;
+        D1(1,k)=2*n^2;
+        D1(N,k)=2*(-1)^n*(n^2);
+        D2(1,k)=4/3*(n^2)*(n^2-1);
+        D2(N,k)=4/3*(-1)^n*(n^2)*(n^2-1);
     end
 end
+
