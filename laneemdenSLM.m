@@ -1,7 +1,6 @@
 function [alfa,y,alfas]=laneemdenSLM(n,N,maxiter)
 % Funcion que resuelve la ecuacion de Lane-Emden para un N mayor que 2 y un
-% n comprendido entre 0 y 5
-% UB:18.05.2025:15:11: debe explicar que significan la 
+% n comprendido entre 0 y 5 
 % ENTRADAS
     %   n=índice politrópico de la ecuación
     %   N=número de puntos de colocación (tamaño)
@@ -64,12 +63,6 @@ function [alfa,y,alfas]=laneemdenSLM(n,N,maxiter)
     %Soluciones finales haciendo el sumatorio
     alfa=alfatotal;
     y=ytotal;
-% UB:25.05.2025:16:03: Es difícil entender el código si se mezcla con gráficas."
-    %Grafico de la solución
-    % plot(t, y);
-    % xlabel('t'); ylabel('y(t)');
-    % title(['Solución de Lane-Emden para n = ', num2str(n), ', \alpha = ', num2str(alfa)]);
-    % grid on;
 end
 function D=chebdiff(N)
 %CHEBDIFF Matriz de diferenciación de Chebyshev.

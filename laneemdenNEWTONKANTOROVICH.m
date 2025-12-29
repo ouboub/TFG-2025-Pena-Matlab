@@ -1,32 +1,23 @@
 function [alfa,y,alfas,a,x]=laneemdenNEWTONKANTOROVICH(n,N,maxiter)
-    %   Resuelve la ecuación de Lane-Emden usando método espectral de Chebyshev
+    %   Resuelve la ecuación de Lane-Emden usando el método espectral de Chebyshev
     %   y el de Newton-Kantorovich
     %   ENTRADAS:
-    %   n: exponente en la ecuación Lane-Emden % UB:10.07.2025:08:17: OK [0 5]
-    %   N: número de puntos de colocación % UB:10.07.2025:08:17:OK
-    %   maxiter: máximo número de iteraciones de Newton % UB:10.07.2025:08:17: OK
+    %   n: exponente en la ecuación Lane-Emden 
+    %   N: número de puntos de colocación
+    %   maxiter: máximo número de iteraciones de Newton 
     %   SALIDAS:
-    %   alfa: autovalor (solución de la ecuación) % UB:10.07.2025:08:16: OK
-    %   y: solución evaluada en x (puntos de la malla)% UB:10.07.2025:08:17: no entiendo 
-    %   alfas: distintas soluciones para cada n % UB:10.07.2025:08:17:no
-    %   entiendo (es para que me salga la tabla de valores de alfa en cada
-    %   iteracion)
+    %   alfa: autovalor (solución de la ecuación) 
+    %   y: solución evaluada en x 
+    %   alfas: distintas soluciones para cada n
     %   x: puntos de la malla
-    %   a: coeficientes de chebyshev de la solucion
-    %   Falta o no está explicada (solo para saber donde esta su fallo)
-    %   Y:            Valor a la malla (esto tambien es mi y)
-    %   XCheb:    Puntos de la malla
-    %   a:        Los coefficientes de la seria de Chebyshev
-
-    
-
+    %   a: coeficientes de chebyshev
 
     % 1.Puntos de Chebyshev-Lobatto en [0,1]
     j=(0:N-1)';
     tj=pi*(j/(N-1));  % Puntos en [-1,1]
     x=(1+cos(tj))/2;  % Transformacion a [0,1]    
     % 2.Matrices de diferenciación de Chebyshev
-    [D0,D1,D2]=chebdiff(N); % UB:10.07.2025:08:21: que es esto? estas matrices debe calcular usted (estan debajo calculadas en una funcion auxiliar)
+    [D0,D1,D2]=chebdiff(N);
     % 3.Condiciones iniciales
     y0=cos((pi/2).*x); 
     alfa=3;
