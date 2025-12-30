@@ -1,7 +1,7 @@
 % Parámetros de la simulación
 % N=input('introduce N');    %Número de puntos de colocación
 % maxiter=input('introduce maxiter');   %Número de iteraciones
-N=40;
+N=60;
 maxiter=10;
 nvalores=[1,2,3,4];  %Valores del índice politrópico
 %Prepara la tabla de resultados
@@ -9,7 +9,7 @@ resultado=zeros(maxiter,length(nvalores));
     %Calcula resultados para cada n
     for i=1:length(nvalores)
         n=nvalores(i);
-        [~,~,alfas]=laneemdenSLM(n,N,maxiter);
+        [~,~,alfas,~,~]=laneemdenNEWTONKANTOROVICH(n,N,maxiter);
         resultado(:,i)=alfas;
     end
 %Muestra la tabla formateada
