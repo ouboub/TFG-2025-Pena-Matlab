@@ -19,7 +19,9 @@ funcion=@(t,y)[y(2);-y(1)^n-(2/t)*y(2)];
 %Extraer theta de la solución
 theta=y(:,1);
 %Si se alcanza theta=0 (es decir la solucion) antes del puntofinal
-%la solución la mostraraá haciendo lo siguiente, que es cuando cruza 
+%la solución la mostraraá haciendo lo siguiente, que es cuando cruza.
+%aquí me he ayudado de chatgpt porque no sabia como podia programar que la
+%me diera la solucion cuando cruza
 zero_crossing=find(theta <= 0, 1); 
 if ~isempty(zero_crossing)           
     t=t(zero_crossing(end));

@@ -33,6 +33,8 @@ function [t,theta]=laneemdenRK4(n,epsilon,puntofinal,N)
 theta=y(:,1);
 %Si se alcanza theta=0 (es decir la solucion) antes del puntofinal
 %la solución la mostrará haciendo lo siguiente, que es cuando cruza el primer cero 
+%aquí me he ayudado de chatgpt porque no sabia como podia programar que la
+%me diera la solucion cuando cruza
 zero_crossing=find(theta <= 0, 1); 
 if ~isempty(zero_crossing)           
     t=t(zero_crossing(end));
