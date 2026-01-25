@@ -41,3 +41,25 @@ xlim([0 20])
 ylim([-0.2 1.05])
 %leyenda de la gráfica
 legend(legend_entries,'Location','northeastoutside')
+
+%en este archivo también vamos a graficar las soluciones
+%analíticas de la ecuación de Lane-Emden
+figure
+xi = linspace(0,10,1000); %eje x equiespaciado
+%soluciones para los n conocidos
+theta_n0 = 1 - xi.^2/6;
+theta_n1 = sin(xi)./xi;
+theta_n1(1) = 1; %para evitar dividir entre cero
+theta_n5 = (1 + xi.^2/3).^(-1/2);
+%gráfica
+hold on
+plot(xi, theta_n0, 'LineWidth',2)
+plot(xi, theta_n1, 'LineWidth',2)
+plot(xi, theta_n5, 'LineWidth',2)
+hold off
+%leyenda, titulo y nombre de los ejes
+legend('n=0','n=1','n=5','Location', 'southwest')
+xlabel('\xi') 
+ylabel('\theta(\xi)') 
+title('Soluciones explícitas de Lane–Emden')
+grid on
