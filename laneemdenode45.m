@@ -27,3 +27,5 @@ if ~isempty(zero_crossing)
     t=t(zero_crossing(end));
     theta=theta(zero_crossing(end));
 end
+%para poder dibujar la grafica necesitariamos comentar estas últimas cinco
+%líneas ya que si no solo dibujaria un punto, el de la solución

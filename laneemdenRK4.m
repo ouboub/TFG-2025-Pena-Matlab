@@ -4,7 +4,7 @@ function [t,theta]=laneemdenRK4(n,epsilon,puntofinal,N)
     %   n: Índice politrópico
     %   epsilon: Valor inicial pequeño
     %   puntofinal: punto final de integración
-    %   h: Paso fijo para RK4
+    %   N: Paso fijo para RK4
     % SALIDAS:
     %   t: punto donde se calcula la solucion.
     %   theta: solucion de la ecuacion.
@@ -40,3 +40,5 @@ if ~isempty(zero_crossing)
     t=t(zero_crossing(end));
     theta=theta(zero_crossing(end));
 end
+%para poder dibujar la grafica necesitariamos comentar estas últimas cinco
+%líneas ya que si no solo dibujaria un punto, el de la solución
