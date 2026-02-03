@@ -15,10 +15,112 @@ Tutor: Uwe Brauer
 }
 \date{\today}
 
+\makeatletter
+\usepackage{paralist}
+\usepackage[colorinlistoftodos, textwidth=3cm, shadow]{todonotes}
+
+
+\definecolor{GreenYellow}{rgb}{0.678431,1.000000,0.184314}
+\newcounter{todocounter}
+\newcommand{\todonum}[2][]
+{\stepcounter{todocounter}\todo[#1]{\thetodocounter: #2}}
+
+\newcounter{ubcomment}
+
+ 
+\newcommand{\ubcomment}[2][]{%
+\refstepcounter{ubcomment}%
+{%
+\todo[fancyline,linecolor=black,backgroundcolor={red!40!},size=\footnotesize]{%
+\textbf{Fixme: U.B [\uppercase{#1}\theubcomment]:}~#2}%
+}}
+
+
+
+\newcommand{\ubresolved}[2][]{%
+\refstepcounter{ubcomment}%
+{%
+\todo[linecolor=black,backgroundcolor={red!40!},size=\footnotesize]{%
+\textbf{Resolved: UB [\uppercase{#1}\theubcomment]:}~#2}%
+}}
+
+\newcommand{\ubcommentinline}[2][]{%
+\refstepcounter{ubcomment}%
+{%
+\todo[linecolor=black,inline,backgroundcolor={red!40!},size=\footnotesize]{%
+\textbf{Fixme: U.B. [\uppercase{#1}\theubcomment]:}~#2}%
+}}
+
+
+\newcommand{\ubresolvedinline}[2][]{%
+\refstepcounter{ubcomment}%
+{%
+\todo[linecolor=black,inline,backgroundcolor={red!40!},size=\footnotesize]{%
+\textbf{Resolved: UB [\uppercase{#1}\theubcomment]:}~#2}%
+}}
+
+
+\newcommand{\ubcommentmultiline}[2]{%
+\refstepcounter{ubcomment}%
+{%
+\todo[linecolor=black,inline,caption={\textbf{{Fixme: U.B.}
+    [\theubcomment]:} #1} ,backgroundcolor={red!40!},size=\footnotesize]{%
+\textbf{Fixme: U.B. [\theubcomment]:}~#2}%
+}}
+
+
+\newcounter{dfcomment}
+\newcommand{\dfcomment}[2][]{%
+\refstepcounter{dfcomment}%
+{%
+\todo[fancyline,color={purple!50!}]{%
+\textbf{Fixme: DF [\uppercase{#1}\thedfcomment]:}~#2}%
+}}
+
+\newcommand{\dfcommentinline}[2][]{%
+\refstepcounter{dfcomment}%
+{%
+%\todo[linecolor=black,inline,caption={},backgroundcolor={blue!90!},size=\footnotesize]{%  
+\todo[fancyline,linecolor=black,inline,backgroundcolor={yellow!80!},size=\footnotesize]{%  
+\textbf{Fixme: DF [\uppercase{#1}\thedfcomment]:}~#2}%
+}}
+
+
+
+
+\newcommand{\dfcommentmultiline}[2]{%
+\refstepcounter{dfcomment}%
+{%
+\todo[inline,caption={\textbf{{Fixme: DF}
+    [\thedfcomment]: #1 }},color={blue!40!}]{%
+\textbf{Fixme: DF [\thedfcomment]:}~#2}%
+}}
+
+
+
+\makeatother
+
+\usepackage{marginnote}
+\makeatletter
+\renewcommand{\@todonotes@drawMarginNoteWithLine}{%
+\begin{tikzpicture}[remember picture, overlay, baseline=-0.75ex]%
+    \node [coordinate] (inText) {};%
+\end{tikzpicture}%
+\marginnote[{
+    \@todonotes@drawMarginNote%
+    \@todonotes@drawLineToLeftMargin%
+}]{% Draw note in right margin
+    \@todonotes@drawMarginNote%
+    \@todonotes@drawLineToRightMargin%
+}%
+}
+\makeatother
+
+
 \begin{document}
 
 \maketitle
-
+\listoftodos
 \section{Cómo usar el repositorio}
 
 Este repositorio contiene implementaciones de distintos métodos numéricos 
@@ -68,7 +170,9 @@ Por ejemplo, con el comando de Matlab:
 \begin{verbatim}
 >> theta = laneemdenode45(n, epsilon, puntofinal);
 \end{verbatim}
-donde tienes que consultar el comentario inicial dentro de la función 
+donde tienes \ubcommentinline{No usar el tú!}
+
+que consultar el comentario inicial dentro de la función 
 para ver la sintaxis exacta de sus parámetros.
 
 \subsection{Visualización de resultados}
