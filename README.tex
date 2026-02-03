@@ -120,7 +120,6 @@ Tutor: Uwe Brauer
 \begin{document}
 
 \maketitle
-\listoftodos
 \section{Cómo usar el repositorio}
 
 Este repositorio contiene implementaciones de distintos métodos numéricos 
@@ -141,10 +140,10 @@ Este archivo \texttt{laneemdenprueba.m} está diseñado para:
 \end{itemize}
 No incluye los métodos \texttt{ode45} ni \texttt{RK4}. 
 Su función es únicamente validar y analizar el comportamiento de 
-los métodos iterativos. Cuando ejecutas este script obtendrás 
+los métodos iterativos. Cuando se ejecuta este script se obtiene 
 como resultado una tabla con la solución aproximada para los 
 distintos valores del índice politrópico en cada iteración.
-Depende del método que se quiera probar, deberás de introducir
+Depende del método que se quiera probar, se deberá de introducir
 \texttt{laneemdenSLM.m} o \texttt{laneemdenNEWTONKANTOROVICH.m}
 en la línea correcta del script.
 
@@ -165,15 +164,13 @@ de integración).
 
 \subsection{Ejecutar un método específico}
 
-Si quieres ejecutar un método en particular, invócalo directamente. 
+Si se quiere ejecutar un método en particular, hay que invocarlo directamente. 
 Por ejemplo, con el comando de Matlab:
 \begin{verbatim}
 >> theta = laneemdenode45(n, epsilon, puntofinal);
 \end{verbatim}
-donde tienes \ubcommentinline{No usar el tú!}
-
-que consultar el comentario inicial dentro de la función 
-para ver la sintaxis exacta de sus parámetros.
+en el que se tiene que consultar el comentario inicial 
+dentro de la función para ver la sintaxis exacta de sus parámetros.
 
 \subsection{Visualización de resultados}
 
@@ -194,7 +191,7 @@ Un punto a tener muy en cuenta es que para poder visualizar la gráfica
 de las funciones \textbf{ode45} y \textbf{RK4} es necesario leer el
 comentario final de ambas funciones, ya que si no se tiene en cuenta
 solamente representará un punto, el primer cero de la ecuación. Esto
-es debido a que ambas funciones están programadas para que me devuelva
+es debido a que ambas funciones están programadas para que devuelvan
 el punto donde se consigue el primer cero, por ello, para una buena 
 representación es necesario el vector entero, y para ello, se necesita 
 leer el comentario al que antes se ha hecho referencia para ejecutarlo
@@ -206,7 +203,7 @@ Al utilizar este repositorio, el usuario puede:
 \begin{itemize}
   \item Resolver numéricamente la ecuación de Lane-Emden mediante 
   métodos iterativos y métodos clásicos.
-  \item Comparar gráficaa y analíticamente SLM y QLM entre sí.
+  \item Comparar gráfica y analíticamente SLM y QLM.
   \item Comparar gráficamente \texttt{ode45} y RK4.
   \item Contrastar las soluciones analíticas con las soluciones numéricas.
 \end{itemize}
