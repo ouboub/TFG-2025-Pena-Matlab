@@ -1,0 +1,111 @@
+\documentclass{article}
+\usepackage{a4wide}
+\usepackage{geometry}
+\geometry{
+   includeheadfoot,
+   margin=2.54cm
+}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage[spanish]{babel}
+
+\title{README para repositorio de Matlab}
+\author{Diego Fernández de la Peña \\
+Tutor: Uwe Brauer
+}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Cómo usar el repositorio}
+
+Este repositorio contiene implementaciones de distintos métodos numéricos 
+para resolver la ecuación de Lane-Emden. No existe un programa principal, 
+cada método se ejecuta de forma separada, salvo en el caso de los métodos 
+SLM y QLM, que se prueban conjuntamente.
+
+\subsection{Métodos SLM y QLM}
+
+Los métodos SLM y QLM se prueban mediante el script:
+\begin{verbatim}
+>> laneemdenprueba
+\end{verbatim}
+Este archivo \texttt{laneemdenprueba.m} está diseñado para:
+\begin{itemize}
+  \item Ejecutar el método \textbf{SLM}.
+  \item Ejecutar el método \textbf{QLM}.
+\end{itemize}
+No incluye los métodos \texttt{ode45} ni \texttt{RK4}. 
+Su función es únicamente validar y analizar el comportamiento de 
+los métodos iterativos. Cuando ejecutas este script obtendrás 
+como resultado una tabla con la solución aproximada para los 
+distintos valores del índice politrópico en cada iteración.
+Depende del método que se quiera probar, deberás de introducir
+\texttt{laneemdenSLM.m} o \texttt{laneemdenNEWTONKANTOROVICH.m}
+en la línea correcta del script.
+
+\subsection{Métodos clásicos \texttt{ode45} y RK4}
+
+Los métodos clásicos se ejecutan de forma independiente, llamando 
+directamente a sus respectivos archivos:
+\begin{itemize}
+  \item \texttt{laneemdenode45.m}: resuelve la ecuación de Lane-Emden usando 
+  \texttt{ode45} de Matlab.
+  \item \texttt{laneemdenRK4.m}: resuelve la ecuación de Lane-Emden mediante 
+  el método de Runge-Kutta clásico de orden 4 con paso fijo.
+\end{itemize}
+Estos archivos no dependen de \texttt{laneemdenprueba.m} y pueden 
+ejecutarse directamente desde la consola de Matlab proporcionando 
+los parámetros adecuados (como el índice politrópico y el intervalo 
+de integración).
+
+\subsection{Ejecutar un método específico}
+
+Si quieres ejecutar un método en particular, invócalo directamente. 
+Por ejemplo, con el comando de Matlab:
+\begin{verbatim}
+>> theta = laneemdenode45(n, epsilon, puntofinal);
+\end{verbatim}
+donde tienes que consultar el comentario inicial dentro de la función 
+para ver la sintaxis exacta de sus parámetros.
+
+\subsection{Visualización de resultados}
+
+La visualización se realiza mediante el script:
+\begin{verbatim}
+>> graficas
+\end{verbatim}
+Al ejecutar \texttt{graficas.m}, el programa genera automáticamente 
+\textbf{tres figuras}:
+\begin{itemize}
+  \item Una figura con los resultados obtenidos por los métodos \textbf{SLM y QLM}.
+  \item Una figura con las soluciones obtenidas mediante \textbf{ode45} y \textbf{RK4}.
+  \item Una figura con las soluciones analíticas de la ecuación de Lane-Emden.
+\end{itemize}
+Este archivo permite comparar visualmente el comportamiento de los distintos 
+métodos numéricos y el de las soluciones exactas.
+Un punto a tener muy en cuenta es que para poder visualizar la gráfica
+de las funciones \textbf{ode45} y \textbf{RK4} es necesario leer el
+comentario final de ambas funciones, ya que si no se tiene en cuenta
+solamente representará un punto, el primer cero de la ecuación. Esto
+es debido a que ambas funciones están programadas para que me devuelva
+el punto donde se consigue el primer cero, por ello, para una buena 
+representación es necesario el vector entero, y para ello, se necesita 
+leer el comentario al que antes se ha hecho referencia para ejecutarlo
+correctamente.
+
+\section{Qué puede esperar el usuario}
+
+Al utilizar este repositorio, el usuario puede:
+\begin{itemize}
+  \item Resolver numéricamente la ecuación de Lane-Emden mediante 
+  métodos iterativos y métodos clásicos.
+  \item Comparar gráficaa y analíticamente SLM y QLM entre sí.
+  \item Comparar gráficamente \texttt{ode45} y RK4.
+  \item Contrastar las soluciones analíticas con las soluciones numéricas.
+\end{itemize}
+
+\end{document}
+
