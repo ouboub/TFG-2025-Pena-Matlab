@@ -13,22 +13,23 @@
 % You should have received a copy of the GNU General Public License
 % along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%En este archivo vamos a crear una tabla para expresar los resultados
-%obtenidos de los métodos QLM y SLM, para los distintos valores de n y la
-%iteración en la que nos encontramos
-N=40; %número de puntos para la malla
-maxiter=10; %Número de iteraciones
-nvalores=[0,1,2,3,4,5];  %Valores del índice politrópico
-%Prepara la tabla de resultados
+% En este archivo vamos a crear una tabla para expresar los resultados
+% obtenidos de los métodos QLM (Newton-Kantorovich) y SLM, para los distintos
+% valores de n y la iteración en la que nos encontramos.
+N=40; % Número de puntos para la malla.
+maxiter=10; % Número de iteraciones.
+nvalores=[0,1,2,3,4,5];  % Valores del índice politrópico.
+% Preparación de la tabla de resultados.
 resultado=zeros(maxiter,length(nvalores));
-    %Calcula resultados para cada n
+    % Calcula los resultados para cada n.
     for i=1:length(nvalores)
         n=nvalores(i);
-        %pongo el método que quiera probar
+        % Introducir el método que se quiera probar.
         [~,~,alfas]=laneemdenSLM(n,N,maxiter);
         resultado(:,i)=alfas;
     end
-%Muestra la tabla formateada
+% Muestra la tabla formateada con los resultados.
+% Aquí me he ayudado de ChatGPT para que me muestre la tabla.
 disp('-------------------------------------------------------------');
 disp('| Iters | n = 0       | n = 1       | n = 2       | n = 3       | n = 4    | n = 5       |');
 disp('-------------------------------------------------------------');
